@@ -10,7 +10,7 @@ private:
 	int strokeWidth;
 public:
 	//constructor
-	Shape(const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 20);
+	Shape(const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
 
 	//setters
 	void setFill(const char*);

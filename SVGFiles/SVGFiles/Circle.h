@@ -13,7 +13,7 @@ private:
 
 public:
 	//constructors
-	Circle(int r=1, int _cx = 1, int _cy = 1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 20);
+	Circle(int r=1, int _cx = 1, int _cy = 1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
 
 	//setters
 	void setR(int);
