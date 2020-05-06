@@ -28,7 +28,7 @@ void Circle::setCY(int _y) {
 
 
 void Circle::print()const {
-	std::cout << "Circle" << " " << this->r << " " << this->cx << " " << this->cy << " ";
+	std::cout << "circle" << " " << this->r << " " << this->cx << " " << this->cy << " ";
 	Shape::print();
 }
 

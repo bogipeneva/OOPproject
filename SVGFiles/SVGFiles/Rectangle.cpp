@@ -36,7 +36,7 @@ void Rectangle::setHeight(int _height) {
 }
 
 void Rectangle::print()const {
-	std::cout << "Rectangle" << " " << this->x << " " << this->y << " " <<this->width << " " << this->height<<" ";
+	std::cout << "rectangle" << " " << this->x << " " << this->y << " " <<this->width << " " << this->height<<" ";
 	Shape::print();
 }
 

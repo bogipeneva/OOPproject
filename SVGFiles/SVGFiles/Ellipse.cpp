@@ -39,7 +39,7 @@ void Ellipse::setCY(int _y) {
 
 
 void Ellipse::print()const {
-	std::cout << "Ellipse" << " " << this->rx << " " << this->ry << " " << this->cx << " " << this->cy << " ";
+	std::cout << "ellipse" << " " << this->rx << " " << this->ry << " " << this->cx << " " << this->cy << " ";
 	Shape::print();
 }
 

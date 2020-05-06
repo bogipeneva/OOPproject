@@ -25,7 +25,7 @@ void Line::setY2(int _y2) {
 	this->y2 = _y2;
 }
 void Line::print()const {
-	std::cout << "Line" << " " << this->x1 << " " << this->y1 << " " << this->x2 << " " << this->y2 << " ";
+	std::cout << "line" << " " << this->x1 << " " << this->y1 << " " << this->x2 << " " << this->y2 << " ";
 	Shape::print();
 }
 
