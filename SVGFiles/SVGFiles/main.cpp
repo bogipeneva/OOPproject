@@ -9,8 +9,12 @@
 #include "Ellipse.h"
 #include "Line.h"   
 
-std::string rectangle = "rectangle";
+const std::string RECTANGLE = "rectangle";
+const std::string CIRCLE = "circle";
+const std::string ELLIPSE = "ellipse";
+const std::string LINE = "line";
 
+const int MAX_NUMBER_OF_SHAPES = 50;
 
 
 void printShapes(Shape** shapes, int numberOfShapes) {
@@ -35,65 +39,90 @@ std::vector<std::string> split(std::string string, std::string delimiter) {
 	return result;
 }
 
-void createNewShape(std::string shapeType, std::vector<std::string> shapeAttributes) {
+std::vector<int> prepareShapeCordinates(std::vector<std::string> shapeAttributes) {
 	// creating object from the class stringstream in order to convert string to number
 	std::stringstream geek;
+	std::vector<int> attributes;
+	int numberValue = 0;
 
-	if (shapeType == rectangle) {
-		if (shapeAttributes.size() < 4) {
-			std::cout << "Maybe you have missed some of the basic attributes.Please Try again" << std::endl;
-		}
-		else {
-			
-		}
+	for (auto attr : shapeAttributes) {
+		// Assign attribute value to the object of stringstream class
+		geek.str(attr);
+		// stream it to the integer numberValue
+		geek >> numberValue;
+		attributes.push_back(numberValue);
 	}
 
-	std::cout << shapeType << std::endl;
-	for (auto i : shapeAttributes) std::cout << i << std::endl;
+	return attributes;
+}
+
+void createNewShape(std::string shapeType, std::vector<std::string> shapeAttributes, Shape** shapes, int *numberOfShapes) {
+	std::string fillStringValue = shapeAttributes.back();
+	shapeAttributes.pop_back();
+
+	char* fill = new char[20];
+	strcpy_s(fill,20, fillStringValue.c_str());
+
+	std::vector<int> integerAttributes;
+	integerAttributes = prepareShapeCordinates(shapeAttributes);
+
+
+	if (shapeType == RECTANGLE) {
+		shapes[*numberOfShapes] = new Rectangle(integerAttributes[0], integerAttributes[1], integerAttributes[2], integerAttributes[3], fill);
+	}
+	else if (shapeType == CIRCLE) {
+		shapes[*numberOfShapes] = new Circle(integerAttributes[0], integerAttributes[1], integerAttributes[2], fill);
+	}
+	else if (shapeType == ELLIPSE) {
+		shapes[*numberOfShapes] = new Ellipse(integerAttributes[0], integerAttributes[1], integerAttributes[2], integerAttributes[3], fill);
+	}
+	else if (shapeType == LINE) {
+		shapes[*numberOfShapes] = new Line(integerAttributes[0], integerAttributes[1], integerAttributes[2], integerAttributes[3], fill);
+	}
+
+	(*numberOfShapes)++;
+	std::cout << "Successfully created " << shapeType << ' (' << *numberOfShapes << ')' << std::endl;
+}
+
+void deleteShape(int shapeIndex, Shape** shapes, int* numberOfShapes) {
+
 }
 
 int main()
 {
-	/*
+	
 	pugi::xml_document doc;
 
 	pugi::xml_parse_result result = doc.load_file("fig.svg");
 
 	pugi::xml_node panels = doc.child("svg");
 
-	Shape** shapes = new Shape*[5];
-	int shapesIndex = 0;
+	Shape** shapes = new Shape*[MAX_NUMBER_OF_SHAPES];
+	int numberOfShapes = 0;
 
 	for (pugi::xml_node panel = panels.first_child(); panel; panel = panel.next_sibling())
 	{
 		if (strcmp(panel.name(),"rect")== 0) {
-			shapes[shapesIndex] = new Rectangle(panel.attribute("x").as_int(), panel.attribute("y").as_int(), panel.attribute("width").as_int(), panel.attribute("height").as_int(), panel.attribute("fill").as_string(), panel.attribute("stroke").as_string(), panel.attribute("fill_opacity").as_double(), panel.attribute("stroke_opacity").as_double(), panel.attribute("stroke_width").as_int());
-			shapesIndex++;
+			shapes[numberOfShapes] = new Rectangle(panel.attribute("x").as_int(), panel.attribute("y").as_int(), panel.attribute("width").as_int(), panel.attribute("height").as_int(), panel.attribute("fill").as_string());
+			numberOfShapes++;
 		}
 		else if (strcmp(panel.name(), "circle") == 0) {
-			shapes[shapesIndex] = new Circle(panel.attribute("r").as_int(), panel.attribute("cx").as_int(), panel.attribute("cy").as_int(), panel.attribute("fill").as_string(), panel.attribute("stroke").as_string(), panel.attribute("fill_opacity").as_double(), panel.attribute("stroke_opacity").as_double(), panel.attribute("stroke_width").as_int());
-			shapesIndex++;
+			shapes[numberOfShapes] = new Circle(panel.attribute("r").as_int(), panel.attribute("cx").as_int(), panel.attribute("cy").as_int(), panel.attribute("fill").as_string());
+			numberOfShapes++;
 		}
 		else if (strcmp(panel.name(), "line") == 0) {
-			shapes[shapesIndex] = new Line(panel.attribute("x1").as_int(), panel.attribute("y1").as_int(), panel.attribute("x2").as_int(), panel.attribute("y").as_int(), panel.attribute("fill").as_string(), panel.attribute("stroke").as_string(), panel.attribute("fill_opacity").as_double(), panel.attribute("stroke_opacity").as_double(), panel.attribute("stroke_width").as_int());
-			shapesIndex++;
+			shapes[numberOfShapes] = new Line(panel.attribute("x1").as_int(), panel.attribute("y1").as_int(), panel.attribute("x2").as_int(), panel.attribute("y").as_int(), panel.attribute("fill").as_string());
+			numberOfShapes++;
 		}
 		else if (strcmp(panel.name(), "ellipse") == 0) {
-			shapes[shapesIndex] = new Ellipse(panel.attribute("rx").as_int(), panel.attribute("ry").as_int(), panel.attribute("cx").as_int(), panel.attribute("cy").as_int(), panel.attribute("fill").as_string(), panel.attribute("stroke").as_string(), panel.attribute("fill_opacity").as_double(), panel.attribute("stroke_opacity").as_double(), panel.attribute("stroke_width").as_int());
-			shapesIndex++;
+			shapes[numberOfShapes] = new Ellipse(panel.attribute("rx").as_int(), panel.attribute("ry").as_int(), panel.attribute("cx").as_int(), panel.attribute("cy").as_int(), panel.attribute("fill").as_string());
+			numberOfShapes++;
 		}
 	}
 
-	printShapes(shapes, shapesIndex);
+	printShapes(shapes, numberOfShapes);
 	
 
-	//deleting dynamic allocated data
-	for (int index = 0; index < shapesIndex; index++) {
-		delete shapes[index];
-	}
-
-	delete[] shapes;
-	*/
 	std::string userChoice;
 	std::cout << "Enter choice: ";
 	std::cout << std::endl;
@@ -109,14 +138,19 @@ int main()
 
 	std::vector<std::string> attributes(selectedOption.begin() + 2, selectedOption.end());
 
-	createNewShape(selectedShapeType, attributes);
+	createNewShape(selectedShapeType, attributes, shapes, &numberOfShapes);
+
+	printShapes(shapes, numberOfShapes);
+	
+	//deleting dynamic allocated data
+	for (int index = 0; index < numberOfShapes; index++) {
+	delete shapes[index];
+	}
+
+	delete[] shapes;
+
 
 	
-
-	// The object has the value 145 and stream 
-	// it to the integer x 
-
-
 	system("pause");
 	return 0;
 

@@ -13,7 +13,7 @@ private:
 
 public:
 	//constructors
-	Ellipse(int _rx = 1, int _ry = 1, int _cx = 1, int _cy = 1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
+	Ellipse(int _rx = 1, int _ry = 1, int _cx = 1, int _cy = 1, const char* _fill = "");
 
 	//setters
 	void setRX(int);

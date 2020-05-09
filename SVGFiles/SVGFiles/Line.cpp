@@ -1,8 +1,8 @@
 #include "Line.h"
 #include<iostream>
 
-Line::Line(int _x1, int _y1, int _x2, int _y2, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Line::Line(int _x1, int _y1, int _x2, int _y2, const char* _fill)
+	:Shape(_fill) {
 	setX1(_x1);
 	setY1(_y1);
 	setX2(_x2);

@@ -11,7 +11,7 @@ private:
 
 public:
 	//constructors
-	Line(int _x1 = 1, int _y1 = 1, int _x2 = 2, int _y2 = 1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
+	Line(int _x1 = 1, int _y1 = 1, int _x2 = 2, int _y2 = 1, const char* _fill = "");
 
 	//setters
 	void setX1(int);

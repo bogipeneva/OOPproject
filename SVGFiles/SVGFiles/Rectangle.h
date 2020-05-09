@@ -13,7 +13,7 @@ private:
 
 public:
 	//constructors
-	Rectangle(int _x = 1, int _y = 1, int _width = 2, int _height =1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 20);
+	Rectangle(int _x = 1, int _y = 1, int _width = 2, int _height =1, const char* _fill = "");
 	
 	//setters
 	void setX(int);

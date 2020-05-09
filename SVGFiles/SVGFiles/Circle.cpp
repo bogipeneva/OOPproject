@@ -2,8 +2,8 @@
 
 #include<iostream>
 
-Circle::Circle(int _r, int _cx, int _cy, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Circle::Circle(int _r, int _cx, int _cy, const char* _fill)
+	:Shape(_fill) {
 	setR(_r);
 	setCX(_cx);
 	setCY(_cy);

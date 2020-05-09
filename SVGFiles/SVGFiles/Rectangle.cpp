@@ -3,8 +3,8 @@
 #include <iostream>
 
 
-Rectangle::Rectangle(int _x, int _y, int _width, int _height, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Rectangle::Rectangle(int _x, int _y, int _width, int _height, const char* _fill)
+	:Shape(_fill) {
 	setX(_x);
 	setY(_y);
 	setWidth(_width);

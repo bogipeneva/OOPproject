@@ -4,8 +4,8 @@
 
 
 
-Ellipse::Ellipse(int _rx, int _ry, int _cx, int _cy, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Ellipse::Ellipse(int _rx, int _ry, int _cx, int _cy, const char* _fill)
+	:Shape(_fill) {
 	setRX(_rx);
 	setRY(_ry);
 	setCX(_cx);
