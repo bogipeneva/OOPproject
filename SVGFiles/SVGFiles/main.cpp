@@ -40,14 +40,13 @@ std::vector<std::string> split(std::string string, std::string delimiter) {
 }
 
 std::vector<int> prepareShapeCordinates(std::vector<std::string> shapeAttributes) {
-	// creating object from the class stringstream in order to convert string to number
-	std::stringstream geek;
 	std::vector<int> attributes;
 	int numberValue = 0;
 
 	for (auto attr : shapeAttributes) {
+		// creating object from the class stringstream in order to convert string to number;
 		// Assign attribute value to the object of stringstream class
-		geek.str(attr);
+		std::stringstream geek(attr);
 		// stream it to the integer numberValue
 		geek >> numberValue;
 		attributes.push_back(numberValue);
@@ -81,15 +80,49 @@ void createNewShape(std::string shapeType, std::vector<std::string> shapeAttribu
 	}
 
 	(*numberOfShapes)++;
-	std::cout << "Successfully created " << shapeType << ' (' << *numberOfShapes << ')' << std::endl;
+	std::cout << "Successfully created " << shapeType << '(' << *numberOfShapes << ')' << std::endl;
 }
 
+//Does not work correctly 
 void deleteShape(int shapeIndex, Shape** shapes, int* numberOfShapes) {
+	int newNumberOfShapes = *numberOfShapes - 1;
 
+	Shape **newArrayOfShapes = new Shape*[newNumberOfShapes];
+
+	// Copy the content to the new array
+	int newIndex = 0;
+	for (int index = 0; index < *numberOfShapes; index++)
+	{
+		if (index != shapeIndex)
+			newArrayOfShapes[newIndex++] = shapes[index];
+	}
+
+	//Shape **tempArray = new Shape*[*numberOfShapes];
+	//tempArray = shapes;
+
+	shapes = newArrayOfShapes;
+
+	//delete[] tempArray;
+
+	(*numberOfShapes)--;
+	printShapes(shapes, *numberOfShapes);
+}
+
+void translate(Shape** shapes,int numberOfShapes, int vertical, int horizontal, int shapeIndex = -1) {
+	if (shapeIndex == -1) {
+		for (int index = 0; index < numberOfShapes; index++) {
+			shapes[index]->translate(vertical, horizontal);
+		}
+		std::cout << "Translated all figures" << std::endl;
+	}
+	else {
+		shapes[shapeIndex]->translate(vertical, horizontal);
+		std::cout << "Translated (" << shapeIndex << ')' << " figure" << std::endl;
+	}
 }
 
 int main()
-{
+{ /*
 	
 	pugi::xml_document doc;
 
@@ -139,8 +172,15 @@ int main()
 	std::vector<std::string> attributes(selectedOption.begin() + 2, selectedOption.end());
 
 	createNewShape(selectedShapeType, attributes, shapes, &numberOfShapes);
-
 	printShapes(shapes, numberOfShapes);
+
+	//translate(shapes, numberOfShapes, 2, 3);
+
+	std::cout << std::endl;
+
+	//printShapes(shapes, numberOfShapes);
+
+	deleteShape(2, shapes, &numberOfShapes);
 	
 	//deleting dynamic allocated data
 	for (int index = 0; index < numberOfShapes; index++) {
@@ -148,9 +188,8 @@ int main()
 	}
 
 	delete[] shapes;
+	*/
 
-
-	
 	system("pause");
 	return 0;
 
