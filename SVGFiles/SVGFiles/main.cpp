@@ -105,7 +105,7 @@ void deleteShape(int shapeIndex, Shape** shapes, int* numberOfShapes) {
 	//delete[] tempArray;
 
 	(*numberOfShapes)--;
-	printShapes(shapes, *numberOfShapes);
+
 }
 
 void translate(Shape** shapes,int numberOfShapes, int vertical, int horizontal, int shapeIndex = -1) {
@@ -121,8 +121,47 @@ void translate(Shape** shapes,int numberOfShapes, int vertical, int horizontal, 
 	}
 }
 
+// TODO: write test this function
+void withinRectangle(Shape** shapes, int numberOfShapes, int rectX, int rectY, int rectWidth, int rectHeight) {
+	int numberOfShapesInRectangle = 0;
+	for (int shapeIndex = 0; shapeIndex < numberOfShapes; shapeIndex++){
+		if (shapes[shapeIndex]->withinRectangle(rectX, rectY, rectWidth, rectHeight)) {
+			shapes[shapeIndex]->print();
+			numberOfShapesInRectangle++;
+		}
+	}
+	if (numberOfShapesInRectangle == 0)
+		std::cout << "No figures are located within rectangle"<<" "
+			<< rectX <<" "<< rectY << " " << rectWidth << " " << rectHeight << std::endl;
+} 
+
+// TODO: write test this function
+void withinCircle(Shape** shapes, int numberOfShapes, int radius, int x, int y) {
+	int numberOfShapesInCircle = 0;
+	for (int shapeIndex = 0; shapeIndex < numberOfShapes; shapeIndex++) {
+		if (shapes[shapeIndex]->withinCircle(radius, x, y)) {
+			shapes[shapeIndex]->print();
+			numberOfShapesInCircle++;
+		}
+	}
+	if (numberOfShapesInCircle == 0) 
+		std::cout << "No figures are located within rectangle"<<" "<< radius<<" " << x<<" "<< y<< std::endl;
+}
+
+void within(Shape** shapes, int numberOfShapes, std::string option, std::vector<int> optionArgs) {
+	if (option == RECTANGLE) {
+		withinRectangle(shapes, numberOfShapes, optionArgs[0], optionArgs[1], optionArgs[2], optionArgs[3]);
+	}
+	else if (option == CIRCLE) {
+		withinCircle(shapes, numberOfShapes, optionArgs[0], optionArgs[1], optionArgs[2]);
+	}
+	else {
+		std::cout << "" << std::endl;
+	}
+}
+
 int main()
-{ /*
+{ 
 	
 	pugi::xml_document doc;
 
@@ -155,7 +194,6 @@ int main()
 
 	printShapes(shapes, numberOfShapes);
 	
-
 	std::string userChoice;
 	std::cout << "Enter choice: ";
 	std::cout << std::endl;
@@ -165,7 +203,6 @@ int main()
 	std::vector<std::string> selectedOption = split(userChoice, delimiter);
 
 	std::string selectedOperation = selectedOption.front();
-	std::cout << selectedOperation << std::endl;
 
 	std::string selectedShapeType = selectedOption[1];
 
@@ -175,20 +212,22 @@ int main()
 	printShapes(shapes, numberOfShapes);
 
 	//translate(shapes, numberOfShapes, 2, 3);
-
+	//withinRectangle(shapes, numberOfShapes, 3, 4, 50, 50);
+	withinCircle(shapes, numberOfShapes, 2, 10, 10);
 	std::cout << std::endl;
 
 	//printShapes(shapes, numberOfShapes);
-
+/*
 	deleteShape(2, shapes, &numberOfShapes);
-	
+	*/
+
 	//deleting dynamic allocated data
 	for (int index = 0; index < numberOfShapes; index++) {
 	delete shapes[index];
 	}
 
 	delete[] shapes;
-	*/
+
 
 	system("pause");
 	return 0;

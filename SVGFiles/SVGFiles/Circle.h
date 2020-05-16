@@ -25,9 +25,13 @@ public:
 	int getR()const { return r; };
 	int getCX()const { return cx; };
 	int getCY()const { return cy; };
+	char* getShapeType()const { return "circle"; };
 
 	void print()const;
     void translate(int, int);
+	bool withinRectangle(int, int, int, int);
+	bool withinCircle(int, int, int);
+
 };
 
 #endif

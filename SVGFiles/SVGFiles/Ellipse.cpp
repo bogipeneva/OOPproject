@@ -47,3 +47,20 @@ void Ellipse::translate(int vertical, int horizontal) {
 	setCX(this->cx + horizontal);
 	setCY(this->cy + vertical);
 }
+
+bool Ellipse::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->cx - this->rx >= rectX
+		&& this->cy - this->ry >= rectY
+		&& this->cx + this->rx <= rectX + rectWidth
+		&& this->cy + this->ry <= rectY + rectHeight;
+}
+
+bool Ellipse::withinCircle(int radius, int x, int y) {
+	bool circleCenterIsInCircle =
+		sqrt((this->cx - x)*(this->cx - x) + (this->cy - y)*(this->cy - y)) <= radius;
+	return circleCenterIsInCircle
+		&& this->cx + this->rx <= x + radius
+		&& this->cx - this->rx >= x - radius
+		&& this->cy + this->ry <= y + radius
+		&& this->cy - this->ry >= y - radius;
+}

@@ -45,5 +45,24 @@ void Rectangle:: translate(int vertical, int horizontal) {
 	setY(this->y + vertical);
 }
 
+bool Rectangle::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->x <= rectX + rectWidth
+		&& this->x >= rectX
+		&& this->y <= rectY + rectHeight
+		&& this->y >= rectY
+		&& this->x + this->width <= rectX + rectWidth
+		&& this->y + this->height <= rectY + rectHeight;
+}
+
+bool Rectangle::withinCircle(int radius, int x, int y) {
+	bool topLeftVertexIsInCircle =
+		sqrt((this->x - x)*(this->x - x) + (this->y - y)*(this->y - y)) <= radius;
+	bool topRightVertexIsInCircle =
+		sqrt(((this->x + this->width) - x)*((this->x + this->width) - x) + (this->y - y)*(this->y - y)) <= radius;
+	bool bottomLeftVertexIsInCircle =
+		sqrt((this->x - x)*(this->x - x) + ((this->y + this->height) - y)*((this->y + this->height) - y)) <= radius;
+	
+	return topLeftVertexIsInCircle && topRightVertexIsInCircle && bottomLeftVertexIsInCircle;
+}
 
 

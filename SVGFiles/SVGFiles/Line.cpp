@@ -35,3 +35,22 @@ void Line::translate(int vertical, int horizontal) {
 	setX2(this->x2 + horizontal);
 	setY2(this->y2 + vertical);
 }
+
+bool Line::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->x1 <= rectX + rectWidth
+		&& this->x1 >= rectX
+		&& this->x2 <= rectX + rectWidth
+		&& this->x2 >= rectX
+		&& this->y1 <= rectY + rectHeight
+		&& this->y1 >= rectY
+		&& this->y2 <= rectY + rectHeight
+		&& this->y2 >= rectY;
+}
+
+bool Line::withinCircle(int radius, int x, int y) {
+	bool lineStartIsInCircle =
+		sqrt((this->x1 - x)*(this->x1 - x) + (this->y1 - y)*(this->y1 - y)) <= radius;
+	bool lineEndIsInCircle =
+		sqrt((this->x2 - x)*(this->x2 - x) + (this->y2 - y)*(this->y2 - y)) <= radius;
+	return lineStartIsInCircle && lineEndIsInCircle;
+}

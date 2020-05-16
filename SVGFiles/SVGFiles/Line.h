@@ -24,8 +24,12 @@ public:
 	int getY1()const { return y1; };
 	int getX2()const { return x2; };
 	int getY2()const { return y2; };
+	char* getShapeType()const { return "line"; };
 
 	void print()const;
 	void translate(int, int);
+	bool withinRectangle(int, int, int, int);
+	bool withinCircle(int, int, int);
+
 };
 

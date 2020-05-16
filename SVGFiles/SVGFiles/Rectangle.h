@@ -26,8 +26,11 @@ public:
 	int getY()const { return y; };
 	int getWidth()const { return width; };
 	int getHeight()const { return height; };
+	char* getShapeType()const { return "rectangle"; };
 
 	void print()const;
 	void translate(int, int);
+	bool withinRectangle(int, int, int, int);
+	bool withinCircle(int, int, int);
 };
 #endif
