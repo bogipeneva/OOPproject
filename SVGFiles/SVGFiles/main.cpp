@@ -83,28 +83,31 @@ void createNewShape(std::string shapeType, std::vector<std::string> shapeAttribu
 	std::cout << "Successfully created " << shapeType << '(' << *numberOfShapes << ')' << std::endl;
 }
 
-//Does not work correctly 
 void deleteShape(int shapeIndex, Shape** shapes, int* numberOfShapes) {
-	int newNumberOfShapes = *numberOfShapes - 1;
-
-	Shape **newArrayOfShapes = new Shape*[newNumberOfShapes];
-
-	// Copy the content to the new array
-	int newIndex = 0;
-	for (int index = 0; index < *numberOfShapes; index++)
-	{
-		if (index != shapeIndex)
-			newArrayOfShapes[newIndex++] = shapes[index];
+	
+	if (shapeIndex == *numberOfShapes - 1) {
+		delete shapes[shapeIndex];
+		(*numberOfShapes)--;
 	}
-
-	//Shape **tempArray = new Shape*[*numberOfShapes];
-	//tempArray = shapes;
-
-	shapes = newArrayOfShapes;
-
-	//delete[] tempArray;
-
-	(*numberOfShapes)--;
+	else if (shapeIndex >= *numberOfShapes) {
+		std::cout << "There is no figure number"<<" "<<shapeIndex << std::endl;
+	}
+	else {
+		Shape* toBeDeleted = shapes[shapeIndex - 1];
+		toBeDeleted->print();
+		int startIdex = shapeIndex - 1;
+		while (startIdex < *numberOfShapes - 1)
+		{
+			shapes[startIdex] = shapes[startIdex + 1];
+			startIdex++;
+		}
+		(*numberOfShapes)--;
+		shapes[startIdex] = nullptr;
+		delete shapes[startIdex];
+		delete toBeDeleted;
+	}
+	
+	printShapes(shapes, *numberOfShapes);
 
 }
 
@@ -213,13 +216,14 @@ int main()
 
 	//translate(shapes, numberOfShapes, 2, 3);
 	//withinRectangle(shapes, numberOfShapes, 3, 4, 50, 50);
-	withinCircle(shapes, numberOfShapes, 2, 10, 10);
+	//withinCircle(shapes, numberOfShapes, 2, 10, 10);
 	std::cout << std::endl;
 
 	//printShapes(shapes, numberOfShapes);
-/*
-	deleteShape(2, shapes, &numberOfShapes);
-	*/
+
+	deleteShape(5, shapes, &numberOfShapes);
+
+	printShapes(shapes, numberOfShapes);
 
 	//deleting dynamic allocated data
 	for (int index = 0; index < numberOfShapes; index++) {
