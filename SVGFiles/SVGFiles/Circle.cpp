@@ -1,7 +1,8 @@
-#include "Circle.h"
-
+#include<string>
 #include<iostream>
 #include<math.h>
+
+#include "Circle.h"
 
 Circle::Circle(int _r, int _cx, int _cy, const char* _fill)
 	:Shape(_fill) {
@@ -53,5 +54,10 @@ bool Circle::withinCircle(int radius, int x, int y) {
 		&& this->cx - this->r >= x - radius
 		&& this->cy + this->r <= y + radius
 		&& this->cy - this->r >= y - radius;
+}
+
+std::string Circle::getShapeBaseAttributes()const {
+	return std::to_string(this->r) + " " + std::to_string(this->cx) + " "
+		+ std::to_string(this->cy);
 }
 

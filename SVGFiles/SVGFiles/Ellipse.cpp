@@ -1,6 +1,9 @@
+#include<string>
+#include<iostream>
+
 #include "Ellipse.h"
 
-#include<iostream>
+
 
 
 
@@ -63,4 +66,9 @@ bool Ellipse::withinCircle(int radius, int x, int y) {
 		&& this->cx - this->rx >= x - radius
 		&& this->cy + this->ry <= y + radius
 		&& this->cy - this->ry >= y - radius;
+}
+
+std::string Ellipse::getShapeBaseAttributes()const {
+	return std::to_string(this->rx) + " " + std::to_string(this->ry) + " "
+		+ std::to_string(this->cx) + " " + std::to_string(this->cy);
 }

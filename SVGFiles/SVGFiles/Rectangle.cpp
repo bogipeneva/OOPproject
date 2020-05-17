@@ -1,6 +1,7 @@
-#include "Rectangle.h"
-
 #include <iostream>
+#include<string>
+
+#include "Rectangle.h"
 
 
 Rectangle::Rectangle(int _x, int _y, int _width, int _height, const char* _fill)
@@ -65,4 +66,7 @@ bool Rectangle::withinCircle(int radius, int x, int y) {
 	return topLeftVertexIsInCircle && topRightVertexIsInCircle && bottomLeftVertexIsInCircle;
 }
 
-
+std::string Rectangle::getShapeBaseAttributes()const {
+	return std::to_string(this->x) + " " + std::to_string(this->y) + " "
+		+ std::to_string(this->width)  + " " + std::to_string(this->height);
+}

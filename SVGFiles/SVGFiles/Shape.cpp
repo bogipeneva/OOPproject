@@ -1,7 +1,7 @@
-#include "Shape.h"
-
+#include <string>
 #include <iostream>
-#include <string.h>
+
+#include "Shape.h"
 
 void Shape::setFill(char const* _fill)
 {

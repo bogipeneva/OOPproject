@@ -1,5 +1,5 @@
 #include<iostream>
-#include<string.h>
+#include<string>
 #include<vector>
 #include <sstream>
 #include "lib/src/pugixml.hpp"
@@ -15,6 +15,7 @@ const std::string ELLIPSE = "ellipse";
 const std::string LINE = "line";
 
 const int MAX_NUMBER_OF_SHAPES = 50;
+
 
 
 void printShapes(Shape** shapes, int numberOfShapes) {
@@ -163,6 +164,153 @@ void within(Shape** shapes, int numberOfShapes, std::string option, std::vector<
 	}
 }
 
+void appendNewShape(Shape** shapes,int shapeIndex, int numberOfShapes) {
+	pugi::xml_document doc;
+
+	pugi::xml_parse_result result = doc.load_file("fig.svg");
+
+	for (int index = shapeIndex; index < numberOfShapes; index++) {
+		if (shapes[index]->getShapeType() == RECTANGLE) {
+			pugi::xml_node newShape = doc.append_child("rect");
+			std::vector<std::string> rectAttributes = split(shapes[index]->getShapeBaseAttributes(), " ");
+			std::string fillAttr = shapes[index]->getFill();
+			rectAttributes.push_back(fillAttr);
+			newShape.append_attribute("x") = rectAttributes[0].c_str();
+			newShape.append_attribute("y") = rectAttributes[1].c_str();
+			newShape.append_attribute("width") = rectAttributes[2].c_str();
+			newShape.append_attribute("height") = rectAttributes[3].c_str();
+			newShape.append_attribute("fill") = rectAttributes[4].c_str();
+		}
+		else if (shapes[index]->getShapeType() == CIRCLE) {
+			pugi::xml_node newShape = doc.append_child("circle");
+			std::vector<std::string> rectAttributes = split(shapes[index]->getShapeBaseAttributes(), " ");
+			std::string fillAttr = shapes[index]->getFill();
+			rectAttributes.push_back(fillAttr);
+			newShape.append_attribute("r") = rectAttributes[0].c_str();
+			newShape.append_attribute("cx") = rectAttributes[1].c_str();
+			newShape.append_attribute("cy") = rectAttributes[2].c_str();
+			newShape.append_attribute("fill") = rectAttributes[3].c_str();
+		}
+		else if (shapes[index]->getShapeType() == ELLIPSE) {
+			pugi::xml_node newShape = doc.append_child("ellipse");
+			std::vector<std::string> rectAttributes = split(shapes[index]->getShapeBaseAttributes(), " ");
+			std::string fillAttr = shapes[index]->getFill();
+			rectAttributes.push_back(fillAttr);
+			newShape.append_attribute("rx") = rectAttributes[0].c_str();
+			newShape.append_attribute("ry") = rectAttributes[1].c_str();
+			newShape.append_attribute("x") = rectAttributes[2].c_str();
+			newShape.append_attribute("y") = rectAttributes[3].c_str();
+			newShape.append_attribute("fill") = rectAttributes[4].c_str();
+		}
+		else if (shapes[index]->getShapeType() == LINE) {
+			pugi::xml_node newShape = doc.append_child("line");
+			std::vector<std::string> rectAttributes = split(shapes[index]->getShapeBaseAttributes(), " ");
+			std::string fillAttr = shapes[index]->getFill();
+			rectAttributes.push_back(fillAttr);
+			newShape.append_attribute("x1") = rectAttributes[0].c_str();
+			newShape.append_attribute("y1") = rectAttributes[1].c_str();
+			newShape.append_attribute("x2") = rectAttributes[2].c_str();
+			newShape.append_attribute("y2") = rectAttributes[3].c_str();
+			newShape.append_attribute("fill") = rectAttributes[4].c_str();
+		}
+		else {
+			std::cout << "Trying to add unknown shape" << std::endl;
+		}
+
+	}
+	doc.save_file("fig.svg");
+}
+
+//TODO add filename attr
+void editSvgFile(Shape** shapes, int numberOfShapes) {
+	pugi::xml_document doc;
+
+	pugi::xml_parse_result result = doc.load_file("fig.svg");
+
+	pugi::xml_node panels = doc.child("svg");
+
+	int shapeIndex = 0;
+
+	for (pugi::xml_node panel = panels.first_child(); panel; panel = panel.next_sibling())
+	{
+		if (strcmp(panel.name(), "rect") == 0) {
+			if (shapeIndex >= numberOfShapes || shapes[shapeIndex]->getShapeType() != RECTANGLE) {
+				panels.remove_child(panel);
+			}
+			else {
+				std::vector<std::string> rectAttributes = split(shapes[shapeIndex]->getShapeBaseAttributes(), " ");
+				std::string fillAttr = shapes[shapeIndex]->getFill();
+				rectAttributes.push_back(fillAttr);
+				int attributeIndex = 0;
+				for (pugi::xml_attribute attr : panel.attributes())
+				{ 
+					std::string attrValue = rectAttributes[attributeIndex];
+					attr.set_value(attrValue.c_str());
+				}
+				shapeIndex++;
+			}
+		}
+		else if (strcmp(panel.name(), "circle") == 0) {
+			if (shapeIndex >= numberOfShapes || shapes[shapeIndex]->getShapeType() != CIRCLE) {
+				panels.remove_child(panel);
+			}
+			else {
+				std::vector<std::string> rectAttributes = split(shapes[shapeIndex]->getShapeBaseAttributes(), " ");
+				std::string fillAttr = shapes[shapeIndex]->getFill();
+				rectAttributes.push_back(fillAttr);
+				int attributeIndex = 0;
+				for (pugi::xml_attribute attr : panel.attributes())
+				{
+					std::string attrValue = rectAttributes[attributeIndex];
+					attr.set_value(attrValue.c_str());
+				}
+				shapeIndex++;
+			}
+		}
+		else if (strcmp(panel.name(), "line") == 0) {
+			if (shapeIndex >= numberOfShapes || shapes[shapeIndex]->getShapeType() != LINE) {
+				panels.remove_child(panel);
+			}
+			else {
+				std::vector<std::string> rectAttributes = split(shapes[shapeIndex]->getShapeBaseAttributes(), " ");
+				std::string fillAttr = shapes[shapeIndex]->getFill();
+				rectAttributes.push_back(fillAttr);
+				int attributeIndex = 0;
+				for (pugi::xml_attribute attr : panel.attributes())
+				{
+					std::string attrValue = rectAttributes[attributeIndex];
+					attr.set_value(attrValue.c_str());
+				}
+				shapeIndex++;
+			}
+		}
+		else if (strcmp(panel.name(), "ellipse") == 0) {
+			if (shapeIndex >= numberOfShapes || shapes[shapeIndex]->getShapeType() != ELLIPSE) {
+				panels.remove_child(panel);
+			}
+			else {
+				std::vector<std::string> rectAttributes = split(shapes[shapeIndex]->getShapeBaseAttributes(), " ");
+				std::string fillAttr = shapes[shapeIndex]->getFill();
+				rectAttributes.push_back(fillAttr);
+				int attributeIndex = 0;
+				for (pugi::xml_attribute attr : panel.attributes())
+				{
+					std::string attrValue = rectAttributes[attributeIndex];
+					attr.set_value(attrValue.c_str());
+				}
+				shapeIndex++;
+			}
+		}
+
+	}
+	doc.save_file("fig.svg");
+
+	if (shapeIndex < numberOfShapes - 1) {
+		appendNewShape(shapes, shapeIndex, numberOfShapes);
+	}
+
+}
+
 int main()
 { 
 	
@@ -194,6 +342,7 @@ int main()
 			numberOfShapes++;
 		}
 	}
+	doc.save_file("fig.svg");
 
 	printShapes(shapes, numberOfShapes);
 	
@@ -217,13 +366,16 @@ int main()
 	//translate(shapes, numberOfShapes, 2, 3);
 	//withinRectangle(shapes, numberOfShapes, 3, 4, 50, 50);
 	//withinCircle(shapes, numberOfShapes, 2, 10, 10);
+	//editSvgFile(shapes, numberOfShapes);
 	std::cout << std::endl;
 
 	//printShapes(shapes, numberOfShapes);
 
-	deleteShape(5, shapes, &numberOfShapes);
+	//deleteShape(5, shapes, &numberOfShapes);
 
-	printShapes(shapes, numberOfShapes);
+	//printShapes(shapes, numberOfShapes);
+
+	
 
 	//deleting dynamic allocated data
 	for (int index = 0; index < numberOfShapes; index++) {

@@ -2,6 +2,7 @@
 #define _RECTANGLE_H
 
 #include "Shape.h"
+
 class Rectangle :
 	public Shape
 {
@@ -32,5 +33,6 @@ public:
 	void translate(int, int);
 	bool withinRectangle(int, int, int, int);
 	bool withinCircle(int, int, int);
+	std::string getShapeBaseAttributes()const;
 };
 #endif

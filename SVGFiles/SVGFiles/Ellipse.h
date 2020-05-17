@@ -33,6 +33,7 @@ public:
 	void translate(int, int);
 	bool withinRectangle(int, int, int, int);
 	bool withinCircle(int, int, int);
+	std::string getShapeBaseAttributes()const;
 
 };
 

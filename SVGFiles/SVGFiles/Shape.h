@@ -1,5 +1,6 @@
 #ifndef _SHAPE_H
 #define _SHAPE_H
+
 class Shape
 {
 private:
@@ -17,6 +18,7 @@ public:
 	virtual char* getShapeType()const = 0;
 
 	virtual void print()const;
+	virtual std::string getShapeBaseAttributes()const=0;
 	virtual void translate(int, int)=0;
 	virtual bool withinRectangle(int, int, int, int) = 0;
 	virtual bool withinCircle(int, int, int) = 0;

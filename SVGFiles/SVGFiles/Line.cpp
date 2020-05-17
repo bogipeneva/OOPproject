@@ -1,5 +1,8 @@
-#include "Line.h"
 #include<iostream>
+#include<string>
+
+#include "Line.h"
+
 
 Line::Line(int _x1, int _y1, int _x2, int _y2, const char* _fill)
 	:Shape(_fill) {
@@ -53,4 +56,9 @@ bool Line::withinCircle(int radius, int x, int y) {
 	bool lineEndIsInCircle =
 		sqrt((this->x2 - x)*(this->x2 - x) + (this->y2 - y)*(this->y2 - y)) <= radius;
 	return lineStartIsInCircle && lineEndIsInCircle;
+}
+
+std::string Line::getShapeBaseAttributes()const {
+	return std::to_string(this->x1) + " " + std::to_string(this->y1) + " " 
+		+ std::to_string(this->x2) + " " + std::to_string(this->y2);
 }

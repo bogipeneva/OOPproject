@@ -1,5 +1,5 @@
 #ifndef _CIRCLE_H
-#define _CIRCLE_H
+#define _CIRCLE_
 
 #include "Shape.h"
 
@@ -31,6 +31,7 @@ public:
     void translate(int, int);
 	bool withinRectangle(int, int, int, int);
 	bool withinCircle(int, int, int);
+	std::string getShapeBaseAttributes()const;
 
 };
 
