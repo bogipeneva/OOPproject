@@ -1,5 +1,5 @@
 #ifndef _CIRCLE_H
-#define _CIRCLE_H
+#define _CIRCLE_
 
 #include "Shape.h"
 
@@ -13,7 +13,7 @@ private:
 
 public:
 	//constructors
-	Circle(int r=1, int _cx = 1, int _cy = 1, const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
+	Circle(int r=1, int _cx = 1, int _cy = 1, const char* _fill = "");
 
 	//setters
 	void setR(int);
@@ -25,9 +25,14 @@ public:
 	int getR()const { return r; };
 	int getCX()const { return cx; };
 	int getCY()const { return cy; };
+	char* getShapeType()const { return "circle"; };
 
 	void print()const;
     void translate(int, int);
+	bool withinRectangle(int, int, int, int);
+	bool withinCircle(int, int, int);
+	std::string getShapeBaseAttributes()const;
+
 };
 
 #endif

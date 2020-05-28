@@ -1,11 +1,14 @@
-#include "Ellipse.h"
-
+#include<string>
 #include<iostream>
 
+#include "Ellipse.h"
 
 
-Ellipse::Ellipse(int _rx, int _ry, int _cx, int _cy, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+
+
+
+Ellipse::Ellipse(int _rx, int _ry, int _cx, int _cy, const char* _fill)
+	:Shape(_fill) {
 	setRX(_rx);
 	setRY(_ry);
 	setCX(_cx);
@@ -46,4 +49,26 @@ void Ellipse::print()const {
 void Ellipse::translate(int vertical, int horizontal) {
 	setCX(this->cx + horizontal);
 	setCY(this->cy + vertical);
+}
+
+bool Ellipse::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->cx - this->rx >= rectX
+		&& this->cy - this->ry >= rectY
+		&& this->cx + this->rx <= rectX + rectWidth
+		&& this->cy + this->ry <= rectY + rectHeight;
+}
+
+bool Ellipse::withinCircle(int radius, int x, int y) {
+	bool circleCenterIsInCircle =
+		sqrt((this->cx - x)*(this->cx - x) + (this->cy - y)*(this->cy - y)) <= radius;
+	return circleCenterIsInCircle
+		&& this->cx + this->rx <= x + radius
+		&& this->cx - this->rx >= x - radius
+		&& this->cy + this->ry <= y + radius
+		&& this->cy - this->ry >= y - radius;
+}
+
+std::string Ellipse::getShapeBaseAttributes()const {
+	return std::to_string(this->rx) + " " + std::to_string(this->ry) + " "
+		+ std::to_string(this->cx) + " " + std::to_string(this->cy);
 }

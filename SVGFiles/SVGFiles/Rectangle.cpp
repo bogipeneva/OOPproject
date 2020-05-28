@@ -1,10 +1,11 @@
+#include <iostream>
+#include<string>
+
 #include "Rectangle.h"
 
-#include <iostream>
 
-
-Rectangle::Rectangle(int _x, int _y, int _width, int _height, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Rectangle::Rectangle(int _x, int _y, int _width, int _height, const char* _fill)
+	:Shape(_fill) {
 	setX(_x);
 	setY(_y);
 	setWidth(_width);
@@ -45,5 +46,27 @@ void Rectangle:: translate(int vertical, int horizontal) {
 	setY(this->y + vertical);
 }
 
+bool Rectangle::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->x <= rectX + rectWidth
+		&& this->x >= rectX
+		&& this->y <= rectY + rectHeight
+		&& this->y >= rectY
+		&& this->x + this->width <= rectX + rectWidth
+		&& this->y + this->height <= rectY + rectHeight;
+}
 
+bool Rectangle::withinCircle(int radius, int x, int y) {
+	bool topLeftVertexIsInCircle =
+		sqrt((this->x - x)*(this->x - x) + (this->y - y)*(this->y - y)) <= radius;
+	bool topRightVertexIsInCircle =
+		sqrt(((this->x + this->width) - x)*((this->x + this->width) - x) + (this->y - y)*(this->y - y)) <= radius;
+	bool bottomLeftVertexIsInCircle =
+		sqrt((this->x - x)*(this->x - x) + ((this->y + this->height) - y)*((this->y + this->height) - y)) <= radius;
+	
+	return topLeftVertexIsInCircle && topRightVertexIsInCircle && bottomLeftVertexIsInCircle;
+}
 
+std::string Rectangle::getShapeBaseAttributes()const {
+	return std::to_string(this->x) + " " + std::to_string(this->y) + " "
+		+ std::to_string(this->width)  + " " + std::to_string(this->height);
+}

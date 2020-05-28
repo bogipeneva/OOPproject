@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shape.h">
-      <Filter>Resource Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>Resource Files\Header Files</Filter>
     </ClInclude>
@@ -29,6 +26,9 @@
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

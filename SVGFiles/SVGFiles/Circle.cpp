@@ -1,9 +1,11 @@
+#include<string>
+#include<iostream>
+#include<math.h>
+
 #include "Circle.h"
 
-#include<iostream>
-
-Circle::Circle(int _r, int _cx, int _cy, const char* _fill, const char* _stroke, double _fillOpacity, double _strokeOpacity, int _strokeWith)
-	:Shape(_fill, _stroke, _fillOpacity, _strokeOpacity, _strokeWith) {
+Circle::Circle(int _r, int _cx, int _cy, const char* _fill)
+	:Shape(_fill) {
 	setR(_r);
 	setCX(_cx);
 	setCY(_cy);
@@ -28,7 +30,7 @@ void Circle::setCY(int _y) {
 
 
 void Circle::print()const {
-	std::cout << "circle" << " " << this->r << " " << this->cx << " " << this->cy << " ";
+	std::cout << "circle" << " " << this->cx << " " << this->cy << " " << this->r << " ";
 	Shape::print();
 }
 
@@ -37,4 +39,25 @@ void Circle::translate(int vertical, int horizontal) {
 	setCY(this->cy + vertical);
 }
 
+bool Circle::withinRectangle(int rectX, int rectY, int rectWidth, int rectHeight) {
+	return this->cx - this->r >= rectX 
+		&& this->cy - this->r >= rectY 
+		&& this->cx + this->r <= rectX + rectWidth 
+		&& this->cy + this->r <= rectY + rectHeight;
+}
+
+bool Circle::withinCircle(int radius, int x, int y) {
+	bool circleCenterIsInCircle = 
+		sqrt((this->cx - x)*(this->cx - x) + (this->cy - y)*(this->cy - y)) <= radius;
+	return circleCenterIsInCircle
+		&& this->cx + this->r <= x + radius
+		&& this->cx - this->r >= x - radius
+		&& this->cy + this->r <= y + radius
+		&& this->cy - this->r >= y - radius;
+}
+
+std::string Circle::getShapeBaseAttributes()const {
+	return std::to_string(this->r) + " " + std::to_string(this->cx) + " "
+		+ std::to_string(this->cy);
+}
 

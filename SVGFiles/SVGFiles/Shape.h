@@ -1,33 +1,28 @@
 #ifndef _SHAPE_H
 #define _SHAPE_H
+
 class Shape
 {
 private:
-	char fill[50];
-	char stroke[50];
-	double fillOpacity;
-	double strokeOpacity;
-	int strokeWidth;
+	char fill[20];
 public:
 	//constructor
-	Shape(const char* _fill = "", const char* _stroke = "", double _fillOpacity = 0, double _strokeOpacity = 0, int _strokeWith = 0);
+	Shape(const char* _fill = "");
 
-	//setters
+	//setter
 	void setFill(const char*);
-	void setStroke(const char*);
-	void setFillOpacity(double);
-	void setStrokeOpacity(double);
-	void setStrokeWidth(int);
+
 
 	//getters
 	const char* getFill()const { return fill; };
-	const char* getStroke()const { return stroke; };
-	double getFillOpacity()const { return fillOpacity; };
-	double getStrokeOpacity()const { return strokeOpacity; };
-	int getStrokeWidth()const { return strokeWidth; };
+	virtual char* getShapeType()const = 0;
 
 	virtual void print()const;
+	virtual std::string getShapeBaseAttributes()const=0;
 	virtual void translate(int, int)=0;
+	virtual bool withinRectangle(int, int, int, int) = 0;
+	virtual bool withinCircle(int, int, int) = 0;
+
 
 
 };
