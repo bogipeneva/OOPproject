@@ -117,9 +117,9 @@ void deleteShape(int shapeIndex, Shape** shapes, int* numberOfShapes) {
 			shapes[startIdex] = nullptr;
 			delete shapes[startIdex];
 			delete toBeDeleted;
-			delete[10] shapeType;
 		}
 		std::cout << "Erased a " << shapeType << " (" << shapeIndex << ")" << std::endl;
+		delete[10] shapeType;
 	}
 
 }
@@ -337,9 +337,8 @@ void saveFile(Shape** shapes, int numberOfShapes, const char* fileName) {
 		if (shapeIndex < numberOfShapes) {
 			appendNewShape(shapes, shapeIndex, numberOfShapes, fileName);
 		}
-
-		std::cout << "Successfully saved the changes to" << " " << fileName << std::endl;
 	}
+	std::cout << "Successfully saved the changes to" << " " << fileName << std::endl;
 }
 
 void loadDataFromFile(Shape** shapes, int* numberOfShapes, const char* fileName) {
